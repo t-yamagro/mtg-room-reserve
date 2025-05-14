@@ -1,3 +1,35 @@
+:root {
+    /* カラーパレット */
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --background-color: #f8f9fa;
+    --text-color: #2c3e50;
+    --border-color: #e9ecef;
+    --success-color: #2ecc71;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* タイポグラフィ */
+    --font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-size-base: 16px;
+    --line-height: 1.6;
+    
+    /* スペーシング */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* ボーダー */
+    --border-radius: 8px;
+    --border-width: 1px;
+    
+    /* トランジション */
+    --transition-speed: 0.3s;
+}
+
+/* リセットとベーススタイル */
 * {
     margin: 0;
     padding: 0;
@@ -5,152 +37,239 @@
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: var(--spacing-lg);
 }
 
+/* コンテナ */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: var(--spacing-lg);
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px var(--shadow-color);
 }
 
-h1 {
+/* ヘッダー */
+.header {
     text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: var(--border-radius);
 }
 
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* 会議室選択エリア */
 .room-selection {
-    margin-bottom: 40px;
-}
-
-.room-image-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .room-image {
-    width: 45%;
-    max-width: 500px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    border: 3px solid transparent;
-    border-radius: 8px;
+    position: relative;
+    border-radius: var(--border-radius);
     overflow: hidden;
+    cursor: pointer;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .room-image:hover {
-    transform: scale(1.02);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .room-image.selected {
-    border-color: #3498db;
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+    border: 3px solid var(--secondary-color);
+    box-shadow: 0 0 0 2px var(--secondary-color);
 }
 
 .room-image img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 200px;
+    object-fit: cover;
 }
 
-.room-image p {
-    text-align: center;
-    padding: 10px;
-    background-color: #fff;
-    margin: 0;
-}
-
+/* フォーム */
 .reservation-form {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto 40px;
+    background-color: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: var(--spacing-xl);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-lg);
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #2c3e50;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--primary-color);
 }
 
-input, select {
+.form-control {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-speed);
 }
 
-input:focus, select:focus {
+.form-control:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-.submit-button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 24px;
+.form-control[type="date"],
+.form-control[type="time"],
+#startTime.form-control,
+#endTime.form-control {
+    max-width: 200px;
+    min-width: 120px;
+    display: inline-block;
+    margin-right: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-lg);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    font-weight: 500;
     cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: all var(--transition-speed);
+    text-align: center;
 }
 
-.submit-button:hover {
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover {
     background-color: #2980b9;
+    transform: translateY(-2px);
 }
 
-.reservation-list {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.btn-danger {
+    background-color: var(--accent-color);
+    color: white;
 }
 
-.reservation-list h2 {
-    margin-bottom: 20px;
-    color: #2c3e50;
+.btn-danger:hover {
+    background-color: #c0392b;
 }
 
-#reservations {
+/* 予約一覧 */
+.reservations {
     display: grid;
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
 }
 
 .reservation-item {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
-    border-left: 4px solid #3498db;
+    background-color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: transform var(--transition-speed);
 }
 
+.reservation-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.reservation-item p {
+    margin-bottom: var(--spacing-sm);
+}
+
+.reservation-item strong {
+    color: var(--primary-color);
+}
+
+.delete-button {
+    margin-top: var(--spacing-md);
+    width: 100%;
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reservation-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* レスポンシブデザイン */
 @media (max-width: 768px) {
-    .room-image {
-        width: 100%;
+    :root {
+        --font-size-base: 14px;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
     }
-    
+
     .container {
-        padding: 10px;
+        padding: var(--spacing-md);
     }
-    
-    .reservation-form {
-        padding: 20px;
+
+    .header h1 {
+        font-size: 2rem;
     }
-} 
+
+    .room-selection {
+        grid-template-columns: 1fr;
+    }
+
+    .reservations {
+        grid-template-columns: 1fr;
+    }
+
+    #startTime.form-control,
+    #endTime.form-control {
+        max-width: 100%;
+        min-width: 0;
+        margin-right: 0;
+    }
+    .form-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* ユーティリティクラス */
+.text-center { text-align: center; }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); } 
